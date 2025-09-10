@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\PlaydateController;
+use App\Http\Controllers\EventController;
+
+Route::get('event', [\App\Http\Controllers\EventController::class, 'index'] );
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,3 +26,4 @@ Route::middleware(['auth'])->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/playdate', [PlaydateController::class, 'index']);
+Route::get('/event', [EventController::class, 'index']);
