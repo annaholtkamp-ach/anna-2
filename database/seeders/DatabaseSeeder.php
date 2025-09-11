@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\event::factory()->count(20)->create();
         \App\Models\User::factory()->count(20)->create();
         \App\Models\host::factory()->count(20)->create();
+        \App\Models\intention::factory()->count(20)->create();
 
     }
 }
