@@ -8,10 +8,14 @@
     @csrf
         <div>
             <label for="title"> Title</label><br/>
-            <input type="text" name="title" class="bg-gray-200 p-2">
+            <input type="text" name="title">
         </div>
-        
-</div>
-
+        <div>
+            <label for="description">Description</label><br/>
+            <textarea name="description" ></textarea>
+        </div>
+    <br/><br/>
+<button type="submit">Create</button>
+</form>
 
 </html>
