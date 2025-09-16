@@ -33,3 +33,6 @@ Route::get('/event', [EventController::class, 'index']);
 Route::get('/user', [UserController::class, 'index']);
 Route::get('/host', [HostControler::class, 'index']);
 Route::get('/intention', [IntentionController::class, 'index']);
+Route::get('event/create', [EventController::class, 'create'])->name('event.create');
+
+
