@@ -9,4 +9,6 @@ class event extends Model
 {
     /** @use HasFactory<\Database\Factories\EventFactory> */
     use HasFactory;
+
+    protected $guarded = [];
 }

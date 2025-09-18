@@ -3,7 +3,6 @@
    Create Event here
 </head>
 <div>
-    form will be added
     <form action="/event" method="post">
     @csrf
         <div>
@@ -14,6 +13,11 @@
             <label for="description">Description</label><br/>
             <textarea name="description" ></textarea>
         </div>
+        <div><label>Scheduled At</label>
+            <input type="datetime-local" name="scheduled_at" required>
+        </div>
+    </form>
+
     <br/><br/>
 <button type="submit">Create</button>
 </form>

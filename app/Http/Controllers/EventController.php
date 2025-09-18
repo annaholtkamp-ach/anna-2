@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\event;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -28,4 +29,14 @@ class EventController extends Controller
     {
         return view('event.create');
     }
+    public function store(Request $request)
+    {
+        $event = event::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'event_id' => 1,
+        ]);
+        return redirect()->route('event.show', $event->id);
+    }
+
 }
