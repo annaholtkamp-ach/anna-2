@@ -36,11 +36,13 @@ Route::get('/host', [HostControler::class, 'index']);
 Route::get('/intention', [IntentionController::class, 'index']);
 
 //Routes for Event
-Route::get('event/create', [EventController::class, 'create'])->name('event.create');
+
 Route::post('event', [EventController::class, 'store'])->name('event.store');
+Route::get('event/create', [EventController::class, 'create'])->name('event.create');
 Route::get('event/{id}', [EventController::class, 'show'])->name('event.show');
 Route::get('event/{id}/edit', [EventController::class, 'edit'])->name('event.edit');
 Route::put('event/{id}', [EventController::class, 'update'])->name('event.update');
+Route::get('/event/{event}', [EventController::class, 'show'])->name('event.show');
 
 Route::get('/event', [EventController::class, 'index']);
 Route::get('event/{id}', [EventController::class, 'show']);

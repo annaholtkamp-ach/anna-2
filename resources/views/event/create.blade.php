@@ -2,9 +2,9 @@
 <head>
    Create Event here
 </head>
-<div>
-    <form action="/event" method="post">
-    @csrf
+
+    <form method="POST" action="{{ route('event.store') }}">
+        @csrf
         <div>
             <label for="title"> Title</label><br/>
             <input type="text" name="title">
@@ -16,6 +16,7 @@
         <div><label>Scheduled At</label>
             <input type="datetime-local" name="scheduled_at" required>
         </div>
+
     </form>
 
     <br/><br/>

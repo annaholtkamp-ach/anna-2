@@ -31,12 +31,45 @@ class EventController extends Controller
     }
     public function store(Request $request)
     {
-        $event = event::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'event_id' => 1,
+        $validated = $request->validate([
+            'title'        => 'required|string|max:255',
+            'description'  => 'nullable|string',
+            'scheduled_at' => 'required|date',
         ]);
-        return redirect()->route('event.show', $event->id);
+
+        $event = Event::create($validated);
+
+        return redirect()->route('event.show', $event->id)
+                        ->with('status', 'Event created!');
+    }
+    public function edit($id)
+    {
+        $event = \App\Models\event::find($id);
+
+        return view('event.edit', compact('event'));
     }
 
+    public function update(Request $request, $id)
+    {
+        // Step 1: load the correct article from MODEL
+        $event = \App\Models\event::find($id);
+
+        // Step 2: Update the changes
+        $event->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'scheduled_at'=> $request->scheduled_at,
+        ]);
+
+        // Redirect to show
+        return redirect()->route('event.show', $event->id);
+    }
+    public function destroy($id)
+    {
+        // fetch the one article that is requested
+        $article = \App\Models\Article::find($id);
+
+        $article->delete();
+
+        return redirect()->route('articles.index');
 }
