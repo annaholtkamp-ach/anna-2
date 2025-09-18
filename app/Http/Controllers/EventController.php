@@ -67,9 +67,10 @@ class EventController extends Controller
     public function destroy($id)
     {
         // fetch the one article that is requested
-        $article = \App\Models\Article::find($id);
+        $event = \App\Models\event::find($id);
 
-        $article->delete();
+        $event->delete();
 
-        return redirect()->route('articles.index');
+        return redirect()->route('event.index');
+    }
 }
