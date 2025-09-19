@@ -16,8 +16,16 @@ class CommentFactory extends Factory
      */
     public function definition(): array
     {
+        $commentable = $this->faker->randomElement([
+            \App\Models\Event::class,
+            \App\Models\Playdate::class
+        ]);
+
         return [
-            //
+            'content' => $this->faker->paragraph(),
+            'user_id' => \App\Models\User::factory(),
+            'commentable_id' => $commentable::factory(),
+            'commentable_type' => $commentable
         ];
     }
 }

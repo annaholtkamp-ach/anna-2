@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\intention>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Intention>
  */
 class IntentionFactory extends Factory
 {
@@ -21,7 +21,10 @@ class IntentionFactory extends Factory
                 'is_permanent'   => $this->faker->boolean(30), // ~30% true
                 'category'       => $this->faker->randomElement([
                     'Health', 'Career', 'Relationships', 'Personal Growth', 'Finance'
-                ]),  //
+                ]),
+                'user_id' => \App\Models\User::factory(),
+                'event_id' => \App\Models\Event::factory(),
+                'type' => $this->faker->randomElement(['attending', 'maybe', 'not attending'])
         ];
     }
 }

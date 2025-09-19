@@ -10,11 +10,11 @@ class UserController extends Controller
     public function index()
     {
         // load the needed data
-        $user = \App\Models\User::all();
+        $users = \App\Models\User::all();
 
         // send to view + return response
 
-        return view('user.index', compact( 'user'));
+        return view('user.index', compact('users'));
     }
 
     public function show($id)

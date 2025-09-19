@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\event;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -11,11 +11,11 @@ class EventController extends Controller
     public function index()
     {
         // load the needed data
-        $event = \App\Models\event::all();
+        $events = Event::all();
 
         // send to view + return response
 
-        return view('event.index', compact('event'));
+        return view('event.index', compact('events'));
     }
 
     public function show($id)
@@ -44,7 +44,7 @@ class EventController extends Controller
     }
     public function edit($id)
     {
-        $event = \App\Models\event::find($id);
+        $event = \App\Models\Event::find($id);
 
         return view('event.edit', compact('event'));
     }
@@ -52,7 +52,7 @@ class EventController extends Controller
     public function update(Request $request, $id)
     {
         // Step 1: load the correct article from MODEL
-        $event = \App\Models\event::find($id);
+        $event = \App\Models\Event::find($id);
 
         // Step 2: Update the changes
         $event->update([
@@ -67,7 +67,7 @@ class EventController extends Controller
     public function destroy($id)
     {
         // fetch the one article that is requested
-        $event = \App\Models\event::find($id);
+        $event = \App\Models\Event::find($id);
 
         $event->delete();
 

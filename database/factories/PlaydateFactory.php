@@ -21,7 +21,7 @@ class PlaydateFactory extends Factory
             'description' => $this->faker->paragraph(),
             'scheduled_at' => $this->faker->dateTimeBetween('+1 days', '+1 month'),
             'location' => $this->faker->address,
-            //
+            'user_id' => \App\Models\User::factory()
         ];
     }
 }
