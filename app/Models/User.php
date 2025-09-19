@@ -19,9 +19,11 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'user_name',
         'email',
         'password',
+        'age',
+        'link'
     ];
 
     /**
@@ -48,11 +50,51 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the host associated with the user.
+     */
+    public function host()
+    {
+        return $this->hasOne(Host::class);
+    }
+
+    /**
+     * Get the events created by the user.
+     */
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
+
+    /**
+     * Get the intentions created by the user.
+     */
+    public function intentions()
+    {
+        return $this->hasMany(Intention::class);
+    }
+
+    /**
+     * Get the playdates created by the user.
+     */
+    public function playdates()
+    {
+        return $this->hasMany(Playdate::class);
+    }
+
+    /**
+     * Get the comments created by the user.
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
      * Get the user's initials
      */
     public function initials(): string
     {
-        return Str::of($this->name)
+        return Str::of($this->user_name)
             ->explode(' ')
             ->take(2)
             ->map(fn ($word) => Str::substr($word, 0, 1))

@@ -13,11 +13,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Playdate::factory()->count(20)->create(); // generates 20 fake playdates //// User::factory(10)->create();
-        \App\Models\event::factory()->count(20)->create();
-        \App\Models\User::factory()->count(20)->create();
-        \App\Models\host::factory()->count(20)->create();
-        \App\Models\intention::factory()->count(20)->create();
+        // Call DemoDataSeeder for realistic demo data
+        $this->call(DemoDataSeeder::class);
 
+        // If additional random data is needed, uncomment the lines below
+        /*
+        // Create additional users
+        \App\Models\User::factory()->count(10)->create();
+
+        // Create additional events
+        \App\Models\Event::factory()->count(10)->create();
+
+        // Create additional hosts
+        \App\Models\Host::factory()->count(5)->create();
+
+        // Create additional intentions
+        \App\Models\Intention::factory()->count(15)->create();
+
+        // Create additional playdates
+        \App\Models\Playdate::factory()->count(10)->create();
+        */
     }
 }
