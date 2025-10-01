@@ -4,7 +4,7 @@
 </head>
 <body>
 @foreach($event as $test)
-    <a href="/events/{{$test->id}}">{{ $test->title }}</a>
+    <a href="{{ route('event.show', $test->id) }}">{{ $test->title }}</a><br>
 @endforeach
 </body>
 </html>

@@ -35,9 +35,10 @@ class EventController extends Controller
             'title'        => 'required|string|max:255',
             'description'  => 'nullable|string',
             'scheduled_at' => 'required|date',
+            'location'     => 'required|string|max:255',
         ]);
 
-        $event = Event::create($validated);
+        $event = event::create($validated);
 
         return redirect()->route('event.show', $event->id)
                         ->with('status', 'Event created!');

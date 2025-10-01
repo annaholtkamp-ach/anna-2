@@ -15,12 +15,17 @@
         </div>
         <div><label>Scheduled At</label>
             <input type="datetime-local" name="scheduled_at" required>
+        <div>
+          <label for="location">Location</label><br/>
+        <input type="text" name="location" value="{{ old('location') }}" required>
         </div>
+       <div>
+           <button type="submit">Create</button>
+       </div>
 
     </form>
 
     <br/><br/>
-<button type="submit">Create</button>
-</form>
+
 
 </html>
