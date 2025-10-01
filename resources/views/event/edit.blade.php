@@ -20,6 +20,10 @@
         <div><label>Scheduled At</label>
             <input type="datetime-local" name="scheduled_at" required>
         </div>
+        <div>
+            <label for="location">Location</label><br/>
+            <input type="text" name="location" value="{{ old('location') }}" required>
+        </div>
         <br/><br/>
         <button type="submit">Update</button>
 

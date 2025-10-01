@@ -14,10 +14,10 @@
     </div>
 </div>
 
-<form action="/event/{{$event->id}}" method="post">
+<form action="{{ route('event.destroy', $event->id) }}" method="post">
     @method('DELETE')
     @csrf
-    <button  >DELETE</button>
+    <button>DELETE</button>
 </form>
 
 </html>

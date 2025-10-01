@@ -60,6 +60,7 @@ class EventController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'scheduled_at'=> $request->scheduled_at,
+            'location'     => $request->location,
         ]);
 
         // Redirect to show
@@ -69,6 +70,10 @@ class EventController extends Controller
     {
         // fetch the one article that is requested
         $event = \App\Models\event::find($id);
+
+        if (! $event) {           // prevent "delete() on null"
+            abort(404);
+        }
 
         $event->delete();
 
