@@ -20,4 +20,9 @@
     <button>DELETE</button>
 </form>
 
+<br>
+<a href="{{ route('event.edit', $event->id) }}">
+    <button type="button">Edit</button>
+</a>
+<br>
 </html>
