@@ -55,7 +55,15 @@ class EventController extends Controller
         // Step 1: load the correct article from MODEL
         $event = \App\Models\event::find($id);
 
-        // Step 2: Update the changes
+        // Step 2: validate the incoming request data
+        $request->validate([
+            'title' => ['required', 'string', 'max:25', 'min:10'],
+            'description' => ['required', 'string'],
+            'scheduled_at' => ['required','date'],
+            'location'     => ['required','string'],
+        ]);
+
+        // Step 3: Update the changes
         $event->update([
             'title' => $request->title,
             'description' => $request->description,
@@ -63,17 +71,17 @@ class EventController extends Controller
             'location'     => $request->location,
         ]);
 
+
         // Redirect to show
-        return redirect()->route('event.show', $event->id);
+        return redirect()->route('event.show', $event->id)
+                        ->with('status', 'Event updated!');
     }
     public function destroy($id)
     {
         // fetch the one article that is requested
         $event = \App\Models\event::find($id);
 
-        if (! $event) {           // prevent "delete() on null"
-            abort(404);
-        }
+        $event = \App\Models\event::findOrFail($id);
 
         $event->delete();
 
