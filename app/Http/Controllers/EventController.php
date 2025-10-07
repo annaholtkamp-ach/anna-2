@@ -24,7 +24,20 @@ class EventController extends Controller
 
         return view('event.show', compact('event'));
     }
+    public function canEditOrDelete(User $user): bool
+    {
+        // Admin users can always edit and delete all articles
+        if($user->isAdmin()) {
+            return true;
+        }
 
+        // Only the author can delete or edit his/her article
+        if($this->author_id !== $user->id) {
+            return false;
+        }
+
+        return true;
+    }
     public function create()
     {
         return view('event.create');
@@ -45,7 +58,12 @@ class EventController extends Controller
     }
     public function edit($id)
     {
+        // Step 1: load the correct article from MODEL
         $event = \App\Models\event::find($id);
+
+        // Check access rights
+        if (! $event->canEditOrDelete( auth()->user() ))
+            abort(403);
 
         return view('event.edit', compact('event'));
     }
