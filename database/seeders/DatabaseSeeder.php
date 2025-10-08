@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
+    // Admin (can edit/delete everything)
     public function run(): void
     {
         \App\Models\User::create([
@@ -19,6 +20,12 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password' => Hash::make('password'),
         ]);
+
+        // Test user (only their own events)
+        User::updateOrCreate(
+            ['email' => 'test@test.com'],
+            ['name' => 'Test', 'password' => Hash::make('password')]
+        );
 
         \App\Models\Playdate::factory()->count(20)->create(); // generates 20 fake playdates //// User::factory(10)->create();
         \App\Models\event::factory()->count(20)->create();

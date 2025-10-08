@@ -54,7 +54,7 @@ class EventController extends Controller
     {
         $event = \App\Models\event::findOrFail($id);
 
-        abort_if(! $event->canEditOrDelete(auth()->user()), 403);
+        abort_if(! $event->canEditOrDelete(auth()->user()), 403, 'You are not allowed to edit this event.');
 
         return view('event.edit', compact('event'));
     }
@@ -87,13 +87,16 @@ class EventController extends Controller
     }
     public function destroy($id)
     {
-        // fetch the one article that is requested
-        $event = \App\Models\event::find($id);
-
         $event = \App\Models\event::findOrFail($id);
+
+        // block if not organiser and not admin
+        if (! $event->canEditOrDelete(auth()->user())) {
+            abort(403, 'You are not allowed to delete this event.');
+        }
 
         $event->delete();
 
-        return redirect()->route('event.index');
+        return redirect()->route('event.index')
+            ->with('status', 'Event deleted!');
     }
 }
