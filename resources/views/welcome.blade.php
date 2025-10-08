@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<x-site-layout :title="'Welcome – Connection'">
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -18,7 +18,7 @@
             @if (Route::has('login'))
                 <nav class="flex items-center justify-end gap-4">
                     @auth
-                        You are logged in. Welcome {{ auth()->user()->user_name }}
+                        You are logged in. Welcome {{ auth()->user()->name }}
                     @else
                         <a
                             href="{{ route('login') }}"
@@ -65,4 +65,4 @@
                 </div>
             @endif
         </main>
-</html>
+</x-site-layout>

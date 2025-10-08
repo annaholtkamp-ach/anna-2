@@ -1,8 +1,4 @@
-<html>
-<head>
-   Create Event here
-</head>
-
+<x-site-layout :title="'Create Event – Connection'">
     <form method="POST" action="{{ route('event.store') }}">
         @csrf
         <div>
@@ -27,5 +23,4 @@
 
     <br/><br/>
 
-
-</html>
+</x-site-layout>

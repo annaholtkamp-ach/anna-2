@@ -1,4 +1,4 @@
-<html>
+<x-site-layout :title="'Event – Connection'">
 <div>
     <div> Title:
         {{$event->title}}
@@ -25,4 +25,4 @@
     <button type="button">Edit</button>
 </a>
 <br>
-</html>
+</x-site-layout>

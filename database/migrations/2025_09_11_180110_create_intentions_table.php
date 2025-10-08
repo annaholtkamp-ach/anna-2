@@ -16,7 +16,11 @@ return new class extends Migration
             $table->text('intention_text');   // main text
             $table->boolean('is_permanent')->default(false); // true/false
             $table->string('category')->nullable();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('event_id')->constrained('events')->cascadeOnDelete();
             $table->timestamps();
+
+            $table->unique(['user_id', 'event_id']); // prevent duplicates
         });
     }
 

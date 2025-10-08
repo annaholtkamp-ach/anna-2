@@ -1,4 +1,4 @@
-<html>
+<x-site-layout :title="'Edit Event – Connection'">
 <head>
    Create Event here
 </head>
@@ -29,5 +29,4 @@
 
     </form>
 
-
-</html>
+</x-site-layout>
