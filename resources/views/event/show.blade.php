@@ -1,10 +1,13 @@
-<x-site-layout :title="'Event – Connection'">
+<x-site-layout  :title="$event->title . ' – Connection'">
 <div>
     <div> Title:
         {{$event->title}}
     </div>
     <div> Description:
         {{$event->description}}
+    </div>
+    <div> Hosted by:
+        {{$event->organiser->name}}
     </div>
     <div> Scheduled at:
         {{$event->scheduled_at}}
