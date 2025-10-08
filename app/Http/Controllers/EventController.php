@@ -11,12 +11,11 @@ class EventController extends Controller
 
     public function index()
     {
-        // load the needed data
-        $event = \App\Models\event::all();
+        $events = \App\Models\event::with('organiser')
+            ->orderBy('scheduled_at', 'asc')
+            ->get();
 
-        // send to view + return response
-
-        return view('event.index', compact('event'));
+        return view('event.index', compact('events'));
     }
 
     public function show($id)
