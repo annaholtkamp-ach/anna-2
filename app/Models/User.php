@@ -46,6 +46,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function event()
+    {
+        return $this->hasMany(Event::class); // user_id foreign key
+    }
+
+    public function intention()
+    {
+        return $this->hasMany(Intention::class);
+    }
 
     /**
      * Get the user's initials

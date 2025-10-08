@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use App\Models\User;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\event>
  */
@@ -21,6 +21,7 @@ class EventFactory extends Factory
             'description' => $this->faker->paragraph(),
             'scheduled_at' => $this->faker->dateTimeBetween('+1 days', '+1 month'),
             'location' => $this->faker->address,
+            'user_id'      => User::factory(),
         ];
     }
 }

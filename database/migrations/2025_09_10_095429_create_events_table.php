@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->dateTime('scheduled_at');
             $table->string('location');
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }

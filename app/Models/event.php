@@ -11,4 +11,29 @@ class event extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function organiser()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function intention()
+    {
+        return $this->hasMany(Intention::class);
+    }
+
+    public function canEditOrDelete(User $user): bool
+    {
+        // Admin users can always edit and delete all articles
+        if($user->isAdmin()) {
+            return true;
+        }
+
+        // Only the author can delete or edit his/her article
+        if($this->author_id !== $user->id) {
+            return false;
+        }
+
+        return true;
+    }
 }
