@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -24,20 +25,7 @@ class EventController extends Controller
 
         return view('event.show', compact('event'));
     }
-    public function canEditOrDelete(User $user): bool
-    {
-        // Admin users can always edit and delete all articles
-        if($user->isAdmin()) {
-            return true;
-        }
 
-        // Only the author can delete or edit his/her article
-        if($this->author_id !== $user->id) {
-            return false;
-        }
-
-        return true;
-    }
     public function create()
     {
         return view('event.create');
@@ -50,6 +38,12 @@ class EventController extends Controller
             'scheduled_at' => 'required|date',
             'location'     => 'required|string|max:255',
         ]);
+        $event = \App\Models\event::create($validated + [
+                'user_id' => Auth::id(),
+            ]);
+
+        return redirect()->route('event.show', $event->id)
+            ->with('status', 'Event created!');
 
         $event = event::create($validated);
 
@@ -58,12 +52,9 @@ class EventController extends Controller
     }
     public function edit($id)
     {
-        // Step 1: load the correct article from MODEL
-        $event = \App\Models\event::find($id);
+        $event = \App\Models\event::findOrFail($id);
 
-        // Check access rights
-        if (! $event->canEditOrDelete( auth()->user() ))
-            abort(403);
+        abort_if(! $event->canEditOrDelete(auth()->user()), 403);
 
         return view('event.edit', compact('event'));
     }

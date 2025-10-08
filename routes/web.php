@@ -36,13 +36,22 @@ Route::get('/host', [HostControler::class, 'index']);
 Route::get('/intention', [IntentionController::class, 'index']);
 
 //Routes for Event
-
+// public
 Route::get('event', [EventController::class, 'index'])->name('event.index');
-Route::get('event/create', [EventController::class, 'create'])->name('event.create');
-Route::post('event', [EventController::class, 'store'])->name('event.store');
-Route::get('/event/{event}', [EventController::class, 'show'])->name('event.show');
-Route::get('event/{id}/edit', [EventController::class, 'edit'])->name('event.edit');
-Route::put('event/{id}', [EventController::class, 'update'])->name('event.update');
-Route::get('/event/{event}', [EventController::class, 'show'])->name('event.show');
-Route::delete('event/{id}', [EventController::class, 'destroy'])->name('event.destroy');
+
+// must be before {id}
+Route::middleware('auth')->get('event/create', [EventController::class, 'create'])->name('event.create');
+
+// show must be numeric id
+Route::get('event/{id}', [EventController::class, 'show'])
+    ->whereNumber('id')
+    ->name('event.show');
+
+// protected writes
+Route::middleware('auth')->group(function () {
+    Route::post('event', [EventController::class, 'store'])->name('event.store');
+    Route::get('event/{id}/edit', [EventController::class, 'edit'])->name('event.edit');
+    Route::put('event/{id}', [EventController::class, 'update'])->name('event.update');
+    Route::delete('event/{id}', [EventController::class, 'destroy'])->name('event.destroy');
+});
 

@@ -5,6 +5,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Connection</title>
+        @auth
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="underline text-red-600 hover:text-red-800">
+                    Logout
+                </button>
+            </form>
+        @endauth
 
         <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
             @if (Route::has('login'))

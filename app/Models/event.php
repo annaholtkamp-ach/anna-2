@@ -30,7 +30,7 @@ class event extends Model
         }
 
         // Only the author can delete or edit his/her article
-        if($this->author_id !== $user->id) {
+        if($this->user_id !== $user->id) {
             return false;
         }
 

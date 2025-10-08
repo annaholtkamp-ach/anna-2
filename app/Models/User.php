@@ -56,6 +56,14 @@ class User extends Authenticatable
         return $this->hasMany(Intention::class);
     }
 
+    public function isAdmin(): bool
+    {
+        if($this->email === 'admin@admin.com') {
+            return true;
+        }
+
+        return false;
+    }
     /**
      * Get the user's initials
      */
