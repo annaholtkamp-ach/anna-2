@@ -14,11 +14,11 @@ class intention extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(event::class, 'event_id');
     }
 
     public function event()
     {
-        return $this->belongsTo(Event::class);
+        return $this->belongsTo(User::class, 'user_id');
 }
 }

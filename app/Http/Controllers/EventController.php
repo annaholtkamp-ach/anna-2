@@ -20,8 +20,7 @@ class EventController extends Controller
 
     public function show($id)
     {
-        $event = \App\Models\Event::find($id);
-
+        $event = \App\Models\event::with(['organiser', 'intention.user'])->findOrFail($id);
         return view('event.show', compact('event'));
     }
 

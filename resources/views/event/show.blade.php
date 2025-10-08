@@ -66,4 +66,37 @@
             </div>
         </div>
     </div>
+
+    {{-- Participants & Intentions --}}
+    <div class="mt-8">
+        <h2 class="text-lg font-semibold mb-3">Participants & Intentions</h2>
+
+        @forelse($event->intention as $intention)
+            <div class="mb-3 rounded-xl border border-indigo-100 bg-white p-4 shadow-sm">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div class="text-sm">
+                    <span class="font-medium">
+                        {{ optional($intention->user)->name ?? 'Unknown user' }}
+                    </span>
+                        <span class="text-gray-500">— intends:</span>
+                    </div>
+
+                    {{-- Category chip --}}
+                    <span class="inline-flex items-center rounded-full bg-sky-50 px-3 py-1
+                             text-xs font-medium text-sky-700">
+                    {{ $intention->category ?? 'Uncategorized' }}
+                </span>
+                </div>
+
+                {{-- Intention text --}}
+                <p class="mt-2 text-gray-700">
+                    {{ $intention->intention_text }}
+                </p>
+            </div>
+        @empty
+            <div class="rounded-xl border border-indigo-100 bg-white p-4 text-gray-600">
+                No participants yet.
+            </div>
+        @endforelse
+    </div>
 </x-site-layout>

@@ -29,9 +29,9 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Playdate::factory()->count(20)->create(); // generates 20 fake playdates //// User::factory(10)->create();
         \App\Models\event::factory()->count(20)->create();
-        \App\Models\User::factory()->count(20)->create();
+        \App\Models\User::factory()->count(50)->create();
         \App\Models\host::factory()->count(20)->create();
-        \App\Models\intention::factory()->count(20)->create();
+        \App\Models\intention::factory()->count(50)->create();
 
     }
 }

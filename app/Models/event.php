@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class event extends Model
 {
@@ -16,10 +18,9 @@ class event extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
-    public function intention()
+    public function intention(): HasMany
     {
-        return $this->hasMany(Intention::class);
+        return $this->hasMany(Intention::class, 'event_id');
     }
 
     public function canEditOrDelete(User $user): bool
