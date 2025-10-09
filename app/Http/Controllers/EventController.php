@@ -20,8 +20,19 @@ class EventController extends Controller
 
     public function show($id)
     {
+        // Load the event with organiser and all participants (intentions + their users)
         $event = \App\Models\event::with(['organiser', 'intention.user'])->findOrFail($id);
-        return view('event.show', compact('event'));
+
+        // If a user is logged in, check if they already signed up for this event
+        $myIntention = null;
+        if (auth()->check()) {
+            $myIntention = \App\Models\Intention::where('event_id', $event->id)
+                ->where('user_id', auth()->id())
+                ->first();
+        }
+
+        // Send both variables to the Blade view
+        return view('event.show', compact('event', 'myIntention'));
     }
 
     public function create()

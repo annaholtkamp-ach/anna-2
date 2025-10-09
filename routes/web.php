@@ -53,3 +53,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('event/{id}', [EventController::class, 'destroy'])->name('event.destroy');
 });
 
+//Event & Intention
+
+Route::middleware('auth')->group(function () {
+    Route::post('event/{event}/intention', [IntentionController::class, 'store'])->name('intention.store');
+    Route::put('event/{event}/intention/{intention}', [IntentionController::class, 'update'])->name('intention.update');
+    Route::delete('event/{event}/intention/{intention}', [IntentionController::class, 'destroy'])->name('intention.destroy');
+});
