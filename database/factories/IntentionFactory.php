@@ -19,9 +19,7 @@ class IntentionFactory extends Factory
      */
     public function definition(): array
     {
-        return ['user_id'  => User::factory(),
-                'event_id' => event::factory(),
-                'intention_text' => $this->faker->sentence(8), // short phrase
+        return ['intention_text' => $this->faker->sentence(8), // short phrase
                 'is_permanent'   => $this->faker->boolean(30), // ~30% true
                 'category'       => $this->faker->randomElement([
                     'Health', 'Career', 'Relationships', 'Personal Growth', 'Finance'

@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Event;       // FIX: proper class names & casing
+use App\Models\Intention;   // FIX
+use App\Models\User;        // FIX
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -12,24 +13,38 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    // Admin (can edit/delete everything)
     public function run(): void
     {
-        \App\Models\User::create([
-            'name' => 'admin',
-            'email' => 'admin@admin.com',
+        // 1) Random users
+        $users = User::factory()->count(48)->create();  // FIX: capture into $users
+
+        // 2) Admin
+        $admin = User::create([
+            'name'     => 'admin',
+            'email'    => 'admin@admin.com',
             'password' => Hash::make('password'),
+            // add 'is_admin' => true if you have such a column
         ]);
 
-        // Test user (only their own events)
-        User::updateOrCreate(
+        // 3) Test user
+        $test = User::updateOrCreate(
             ['email' => 'test@test.com'],
-            ['name' => 'Test', 'password' => Hash::make('password')]
+            ['name' => 'Test User', 'password' => Hash::make('password')]
         );
 
-        \App\Models\event::factory()->count(20)->create();
-        \App\Models\User::factory()->count(50)->create();
-        \App\Models\intention::factory()->count(50)->create();
+        // 4) Pool of all users for random picks
+        $allUsers = $users->push($admin, $test);
 
+
+        $events = Event::factory(20)->make()->each(function (Event $event) use ($allUsers) {
+            $event->save();
+        });
+
+        // 6) Intentions: link a participant (user) to an event
+        Intention::factory(50)->make()->each(function (Intention $intention) use ($allUsers, $events) {  
+            $intention->user_id  = $allUsers->random()->id;      // participant
+            $intention->event_id = $events->random()->id;        // event they join
+            $intention->save();
+        });
     }
 }

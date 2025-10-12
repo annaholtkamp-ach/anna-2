@@ -89,12 +89,11 @@
                     <form method="POST" action="{{ route('intention.destroy', ['event' => $event->id, 'intention' => $myIntention->id]) }}">
                         @csrf @method('DELETE')
                         <button class="rounded-lg border px-3 py-1.5 text-sm hover:bg-red-50">
-                            Withdraw
+                            Cancel
                         </button>
                     </form>
                 </div>
             </div>
-            {{-- FIX: removed one extra stray </div> here --}}
         @else
             {{-- Signup form --}}
             <div class="mb-6 rounded-2xl border border-indigo-100 bg-white p-5">
@@ -135,17 +134,17 @@
         </div>
     @endguest
 
-    //Participants & Intentions
-    <div class="mt-8">
-        <h2 class="text-lg font-semibold mb-3">Participants & Intentions</h2>
+{{-- Participants & Intentions --}}
+<div class="mt-8">
+    <h2 class="text-lg font-semibold mb-3">Participants & Intentions</h2>
 
-        {{-- FIX: use $event->intentions and close with @endforelse --}}
-        @forelse($event->intentions as $intention)
-            <div class="mb-3 rounded-xl border border-indigo-100 bg-white p-4 shadow-sm">
-                <div class="flex flex-wrap items-center justify-between gap-2">
-                    <div class="text-sm">
-                        <span class="font-medium">
-                        {{ optional($intention->user)->name ?? 'Unknown user' }}
+
+    @forelse($event->intentions as $intention)
+        <div class="mb-3 rounded-xl border border-indigo-100 bg-white p-4 shadow-sm">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="text-sm">
+                    <span class="font-medium">
+                    {{ optional($intention->user)->name ?? 'Unknown user' }}
 
 </span>
 <span class="text-gray-500">— intends:</span>
