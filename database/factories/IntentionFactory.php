@@ -22,7 +22,7 @@ class IntentionFactory extends Factory
         return ['intention_text' => $this->faker->sentence(8), // short phrase
                 'is_permanent'   => $this->faker->boolean(30), // ~30% true
                 'category'       => $this->faker->randomElement([
-                    'Health', 'Career', 'Relationships', 'Personal Growth', 'Finance', 'Friendship'
+                    'Health', 'Career', 'Relationships', 'Personal Growth', 'Finance', 'Friendship',
                 ]),  //
         ];
     }
