@@ -15,7 +15,6 @@ class IntentionController extends Controller
         $intention = \App\Models\intention::all();
 
         // send to view + return response
-
         return view('intention.index', compact( 'intention'));
     }
 
@@ -26,7 +25,7 @@ class IntentionController extends Controller
         return view('intention.show', compact('intention'));
     }
 
-    // POST /event/{event}/intentions
+
     public function store(Request $request, event $event)
     {
         $data = $request->validate([
@@ -48,7 +47,7 @@ class IntentionController extends Controller
             ->with('success', 'You signed up for this event.');
     }
 
-    // PUT /event/{event}/intentions/{intention}
+
     public function update(Request $request, event $event, Intention $intention)
     {
         abort_unless($intention->user_id === auth()->id() || auth()->user()->isAdmin(), 403);
@@ -70,7 +69,7 @@ class IntentionController extends Controller
 
     }
 
-    // DELETE /event/{event}/intentions/{intention}
+
     public function destroy(event $event, Intention $intention)
     {
         abort_unless($intention->user_id === auth()->id() || auth()->user()->isAdmin(), 403);

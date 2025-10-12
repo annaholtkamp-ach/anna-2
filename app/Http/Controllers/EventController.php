@@ -70,7 +70,7 @@ class EventController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Step 1: load the correct article from MODEL
+        // Step 1: load the correct event from MODEL
         $event = \App\Models\event::find($id);
 
         // Step 2: validate the incoming request data

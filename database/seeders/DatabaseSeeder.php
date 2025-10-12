@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Event;       // FIX: proper class names & casing
-use App\Models\Intention;   // FIX
-use App\Models\User;        // FIX
+use App\Models\Event;
+use App\Models\Intention;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,14 +16,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // 1) Random users
-        $users = User::factory()->count(48)->create();  // FIX: capture into $users
+        $users = User::factory()->count(48)->create();
 
         // 2) Admin
         $admin = User::create([
             'name'     => 'admin',
             'email'    => 'admin@admin.com',
             'password' => Hash::make('password'),
-            // add 'is_admin' => true if you have such a column
+
         ]);
 
         // 3) Test user
@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
         });
 
         // 6) Intentions: link a participant (user) to an event
-        Intention::factory(50)->make()->each(function (Intention $intention) use ($allUsers, $events) {  
+        Intention::factory(50)->make()->each(function (Intention $intention) use ($allUsers, $events) {
             $intention->user_id  = $allUsers->random()->id;      // participant
             $intention->event_id = $events->random()->id;        // event they join
             $intention->save();
