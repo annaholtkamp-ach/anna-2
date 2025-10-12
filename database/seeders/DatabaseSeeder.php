@@ -42,9 +42,17 @@ class DatabaseSeeder extends Seeder
 
         // 6) Intentions: link a participant (user) to an event
         Intention::factory(50)->make()->each(function (Intention $intention) use ($allUsers, $events) {
-            $intention->user_id  = $allUsers->random()->id;      // participant
-            $intention->event_id = $events->random()->id;        // event they join
-            $intention->save();
+            $userId  = $allUsers->random()->id;
+            $eventId = $events->random()->id;
+
+            Intention::updateOrCreate(
+                ['user_id' => $userId, 'event_id' => $eventId],
+                [
+                    'intention_text' => $intention->intention_text,
+                    'category'       => $intention->category,
+                    'is_permanent'   => (bool) $intention->is_permanent,
+                ]
+            );
         });
-    }
+}
 }
