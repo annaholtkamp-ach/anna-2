@@ -18,7 +18,7 @@ class event extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function intention(): HasMany
+    public function intentions(): HasMany
     {
         return $this->hasMany(Intention::class, 'event_id');
     }

@@ -21,7 +21,7 @@ class EventController extends Controller
     public function show($id)
     {
         // Load the event with organiser and all participants (intentions + their users)
-        $event = \App\Models\event::with(['organiser', 'intention.user'])->findOrFail($id);
+        $event = \App\Models\event::with(['organiser', 'intentions.user'])->findOrFail($id);
 
         // If a user is logged in, check if they already signed up for this event
         $myIntention = null;

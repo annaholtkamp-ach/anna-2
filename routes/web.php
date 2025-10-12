@@ -7,7 +7,6 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\IntentionController;
 
-Route::get('event', [\App\Http\Controllers\EventController::class, 'index'] );
 
 Route::get('/', function () {
     return view('welcome');

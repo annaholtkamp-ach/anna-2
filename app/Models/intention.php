@@ -11,14 +11,14 @@ class intention extends Model
 {
     /** @use HasFactory<\Database\Factories\IntentionFactory> */
     use HasFactory;
-
+    protected $guarded = [];
     public function user()
     {
-        return $this->belongsTo(event::class, 'event_id');
+        return $this->belongsTo(event::class, 'user_id');
     }
 
     public function event()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'event_id');
 }
 }

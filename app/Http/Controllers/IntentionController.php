@@ -67,7 +67,9 @@ class IntentionController extends Controller
 
         return redirect()->route('event.show', $event->id)
             ->with('success', 'Your intention was updated.');
+
     }
+
     // DELETE /event/{event}/intentions/{intention}
     public function destroy(event $event, Intention $intention)
     {
@@ -77,6 +79,7 @@ class IntentionController extends Controller
 
         return redirect()->route('event.show', $event->id)
             ->with('success', 'You withdrew from this event.');
+
     }
 
 }

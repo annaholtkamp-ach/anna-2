@@ -11,16 +11,12 @@
             @if ($event->canEditOrDelete(auth()->user()))
                 <div class="flex items-center gap-2">
                     <a href="{{ route('event.edit', $event->id) }}"
-                       class="px-3 py-1.5 rounded-lg text-sm font-medium text-white
-                              bg-blue-600 hover:bg-blue-700">Edit</a>
+                       class="px-3 py-1.5 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">Edit</a>
 
-                    <form action="{{ route('event.destroy', $event->id) }}" method="POST"
-                          onsubmit="return confirm('Delete this event?');">
+                    <form action="{{ route('event.destroy', $event->id) }}" method="POST" onsubmit="return confirm('Delete this event?');">
                         @csrf
                         @method('DELETE')
-                        <button
-                            class="px-3 py-1.5 rounded-lg text-sm font-medium text-white
-                                   bg-rose-600 hover:bg-rose-700">
+                        <button class="px-3 py-1.5 rounded-lg text-sm font-medium text-white bg-rose-600 hover:bg-rose-700">
                             Delete
                         </button>
                     </form>
@@ -66,40 +62,39 @@
             </div>
         </div>
     </div>
+
     {{-- Signed-up box / form --}}
-
     @auth
-
         @if ($myIntention)
-
             <div class="mt-6 rounded-2xl border border-indigo-100 bg-white p-5">
                 <p class="font-semibold text-gray-900 mb-3">Your intention</p>
-                    <div class="flex gap-2">
-                        {{-- Edit (inline simple) --}}
-                        <form method="POST" action="{{ route('intention.update', ['event' => $event->id, 'intention' => $myIntention->id]) }}">
-                            @csrf @method('PUT')
-                            <input type="text" name="intention_text" class="rounded-lg border px-3 py-1 text-sm"
-                                   value="{{ old('intention_text', $myIntention->intention_text) }}" required>
-                            <input type="text" name="category" class="rounded-lg border px-3 py-1 text-sm"
-                                   placeholder="Category (optional)" value="{{ old('category', $myIntention->category) }}">
-                            <label class="ml-2 text-sm">
-                                <input type="checkbox" name="is_permanent" value="1" {{ $myIntention->is_permanent ? 'checked' : '' }}>
-                                permanent
-                            </label>
-                            <button class="ml-2 rounded-lg bg-indigo-600 px-3 py-1.5 text-sm text-white hover:bg-indigo-700">
-                                Update
-                            </button>
-                        </form>
+                <div class="flex gap-2">
+                    {{-- Edit (inline simple) --}}
+                    <form method="POST" action="{{ route('intention.update', ['event' => $event->id, 'intention' => $myIntention->id]) }}">
+                        @csrf @method('PUT')
+                        <input type="text" name="intention_text" class="rounded-lg border px-3 py-1 text-sm"
+                               value="{{ old('intention_text', $myIntention->intention_text) }}" required>
+                        <input type="text" name="category" class="rounded-lg border px-3 py-1 text-sm"
+                               placeholder="Category (optional)" value="{{ old('category', $myIntention->category) }}">
+                        <label class="ml-2 text-sm">
+                            <input type="checkbox" name="is_permanent" value="1" {{ $myIntention->is_permanent ? 'checked' : '' }}>
+                            permanent
+                        </label>
+                        <button class="ml-2 rounded-lg bg-indigo-600 px-3 py-1.5 text-sm text-white hover:bg-indigo-700">
+                            Update
+                        </button>
+                    </form>
 
-                        {{-- Withdraw --}}
-                        <form method="POST" action="{{ route('intention.destroy', ['event' => $event->id, 'intention' => $myIntention->id]) }}">
-                            @csrf @method('DELETE')
-                            <button class="rounded-lg border px-3 py-1.5 text-sm hover:bg-red-50">
-                                Withdraw
-                            </button>
-                        </form>
-                    </div>
+                    {{-- Withdraw --}}
+                    <form method="POST" action="{{ route('intention.destroy', ['event' => $event->id, 'intention' => $myIntention->id]) }}">
+                        @csrf @method('DELETE')
+                        <button class="rounded-lg border px-3 py-1.5 text-sm hover:bg-red-50">
+                            Withdraw
+                        </button>
+                    </form>
                 </div>
+            </div>
+            {{-- FIX: removed one extra stray </div> here --}}
         @else
             {{-- Signup form --}}
             <div class="mb-6 rounded-2xl border border-indigo-100 bg-white p-5">
@@ -139,36 +134,36 @@
             <a href="{{ route('register') }}" class="text-indigo-700 font-medium hover:underline">Register</a>.
         </div>
     @endguest
-    {{-- Participants & Intentions --}}
+
+    //Participants & Intentions
     <div class="mt-8">
         <h2 class="text-lg font-semibold mb-3">Participants & Intentions</h2>
 
+        {{-- FIX: use $event->intentions and close with @endforelse --}}
         @forelse($event->intentions as $intention)
             <div class="mb-3 rounded-xl border border-indigo-100 bg-white p-4 shadow-sm">
                 <div class="flex flex-wrap items-center justify-between gap-2">
                     <div class="text-sm">
-                    <span class="font-medium">
+                        <span class="font-medium">
                         {{ optional($intention->user)->name ?? 'Unknown user' }}
-                    </span>
-                        <span class="text-gray-500">— intends:</span>
-                    </div>
 
-                    {{-- Category chip --}}
-                    <span class="inline-flex items-center rounded-full bg-sky-50 px-3 py-1
-                             text-xs font-medium text-sky-700">
-                    {{ $intention->category ?? 'Uncategorized' }}
-                </span>
-                </div>
+</span>
+<span class="text-gray-500">— intends:</span>
+</div>
 
-                {{-- Intention text --}}
-                <p class="mt-2 text-gray-700">
-                    {{ $intention->intention_text }}
-                </p>
-            </div>
-        @empty
-            <div class="rounded-xl border border-indigo-100 bg-white p-4 text-gray-600">
-                No participants yet.
-            </div>
-        @endforelse
-    </div>
+<span class="inline-flex items-center rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700">
+{{ $intention->category ?? 'Uncategorized' }}
+</span>
+</div>
+
+<p class="mt-2 text-gray-700">
+{{ $intention->intention_text }}
+</p>
+</div>
+@empty
+<div class="rounded-xl border border-indigo-100 bg-white p-4 text-gray-600">
+No participants yet.
+</div>
+@endforelse
+</div>
 </x-site-layout>
