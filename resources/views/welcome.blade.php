@@ -18,7 +18,7 @@
             @if (Route::has('login'))
                 <nav class="flex items-center justify-end gap-4">
                     @auth
-                        You are logged in. Welcome {{ auth()->user()->name }}
+                        You are logged in. Welcome {{ auth()->user()->name }}.
                     @else
                         <a
                             href="{{ route('login') }}"
@@ -40,8 +40,16 @@
         </header>
         {{-- Hero / Landing --}}
         <main class="max-w-5xl mx-auto px-6 py-12">
-            <h1 class="text-4xl font-bold mb-4">Welcome 👋</h1>
-            <p class="mb-8 text-lg">Use the buttons below to explore the app.</p>
+            <h1 class="text-4xl font-bold mb-4">Welcome to Connection 💌</h1>
+            <p class="mb-8 text-lg" style="font-style: italic;">Make meaningful connections on purpose.</p>
+
+            <p class="mb-8 text-lg">At most social gatherings, people come with goals in mind: finding new friends, meeting others in their field, or discovering shared interests. But connecting with the right people often depends on luck.</p>
+
+            <p class="mb-8 text-lg"> Connection helps you make those encounters more intentional.
+                Create and host events, or join existing ones by sharing your intention, what you hope to get out of the event. Then, discover others with similar goals and connect more meaningfully. </p>
+
+            <p class="mb-8 text-sm italic text-gray-600" style="font-style: italic;">
+                🔒 You must be logged in to register for or create events.</p>
 
             <div class="flex flex-wrap gap-3">
                 <a href="{{ route('event.index') }}"
